@@ -7,6 +7,8 @@ import { TeamDashboard } from "@/components/dashboard/TeamDashboard";
 import { OrganizationDashboard } from "@/components/dashboard/OrganizationDashboard";
 import { AdminPanel } from "@/components/dashboard/AdminPanel";
 import { ProbationManagement } from "@/components/dashboard/ProbationManagement";
+import { Button } from "@/components/ui/button";
+import { FileText, Home } from "lucide-react";
 
 export type DashboardView = "individual" | "team" | "organization" | "admin" | "probation";
 
@@ -15,10 +17,11 @@ const Dashboard = () => {
   const { user, loading } = useAuth();
   const [currentView, setCurrentView] = useState<DashboardView>("individual");
   const [userRole] = useState<"employee" | "supervisor" | "admin">("employee");
+  const [showPerformanceReport, setShowPerformanceReport] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) {
-      navigate("/auth");
+      navigate("/");
     }
   }, [user, loading, navigate]);
 
@@ -55,7 +58,37 @@ const Dashboard = () => {
     <div className="flex min-h-screen bg-background">
       <Sidebar currentView={currentView} setCurrentView={setCurrentView} userRole={userRole} />
       <main className="flex-1 p-6 lg:p-8">
-        {renderDashboard()}
+        {!showPerformanceReport ? (
+          <>
+            <div className="mb-6 flex justify-end">
+              <Button 
+                onClick={() => setShowPerformanceReport(true)}
+                className="gap-2"
+              >
+                <FileText className="h-4 w-4" />
+                Performance Report
+              </Button>
+            </div>
+            {renderDashboard()}
+          </>
+        ) : (
+          <div>
+            <div className="mb-6">
+              <Button 
+                onClick={() => setShowPerformanceReport(false)}
+                variant="outline"
+                className="gap-2"
+              >
+                <Home className="h-4 w-4" />
+                Home
+              </Button>
+            </div>
+            <div className="space-y-6">
+              <h1 className="text-3xl font-bold">Performance Report</h1>
+              {renderDashboard()}
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );

@@ -96,23 +96,24 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted flex items-center justify-center p-4">
-      <div className="w-full max-w-6xl">
+      <div className="w-full max-w-md">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <div className="flex justify-center mb-6">
             <div className="h-20 w-20 bg-primary rounded-2xl flex items-center justify-center shadow-lg">
               <Trophy className="h-12 w-12 text-primary-foreground" />
             </div>
           </div>
           <h1 className="text-4xl font-bold mb-2">e-Office Performance System</h1>
-          <p className="text-muted-foreground">Access your performance dashboard</p>
+          <p className="text-muted-foreground">
+            {isSignup ? "Create your account" : "Access your performance dashboard"}
+          </p>
         </div>
 
-        {/* Main Content */}
-        <div className="grid md:grid-cols-2 gap-8 items-start">
-          {/* Login Section */}
-          <Card className={`transition-all duration-300 ${!isSignup ? 'ring-2 ring-primary shadow-xl scale-105' : 'opacity-75 hover:opacity-100'}`}>
-            <CardHeader className="space-y-3 pb-8">
+        {/* Login or Signup Card */}
+        {!isSignup ? (
+          <Card className="shadow-xl">
+            <CardHeader className="space-y-3 pb-6">
               <div className="flex items-center gap-3">
                 <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center">
                   <LogIn className="h-6 w-6 text-primary" />
@@ -154,9 +155,9 @@ const Auth = () => {
                 <Button 
                   type="submit" 
                   className="w-full h-11 text-base" 
-                  disabled={loading && !isSignup}
+                  disabled={loading}
                 >
-                  {loading && !isSignup ? "Logging in..." : (
+                  {loading ? "Logging in..." : (
                     <>
                       Login to Dashboard
                       <ArrowRight className="ml-2 h-4 w-4" />
@@ -179,10 +180,9 @@ const Auth = () => {
               </div>
             </CardContent>
           </Card>
-
-          {/* Signup Section */}
-          <Card className={`transition-all duration-300 ${isSignup ? 'ring-2 ring-primary shadow-xl scale-105' : 'opacity-75 hover:opacity-100'}`}>
-            <CardHeader className="space-y-3 pb-8">
+        ) : (
+          <Card className="shadow-xl">
+            <CardHeader className="space-y-3 pb-6">
               <div className="flex items-center gap-3">
                 <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center">
                   <UserPlus className="h-6 w-6 text-primary" />
@@ -281,9 +281,9 @@ const Auth = () => {
                 <Button 
                   type="submit" 
                   className="w-full h-11 text-base" 
-                  disabled={loading && isSignup}
+                  disabled={loading}
                 >
-                  {loading && isSignup ? "Creating account..." : (
+                  {loading ? "Creating account..." : (
                     <>
                       Create Account
                       <ArrowRight className="ml-2 h-4 w-4" />
@@ -306,14 +306,7 @@ const Auth = () => {
               </div>
             </CardContent>
           </Card>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-8 text-center">
-          <Button variant="ghost" onClick={() => navigate("/")} className="text-muted-foreground">
-            ← Back to Home
-          </Button>
-        </div>
+        )}
       </div>
     </div>
   );
