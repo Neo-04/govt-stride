@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Sidebar } from "@/components/dashboard/Sidebar";
+import { ProjectOverview } from "@/components/dashboard/ProjectOverview";
 import { IndividualDashboard } from "@/components/dashboard/IndividualDashboard";
 import { TeamDashboard } from "@/components/dashboard/TeamDashboard";
 import { OrganizationDashboard } from "@/components/dashboard/OrganizationDashboard";
@@ -59,7 +60,7 @@ const Dashboard = () => {
                 Performance Report
               </Button>
             </div>
-            {renderDashboard()}
+            <ProjectOverview />
           </>
         ) : (
           <div>
