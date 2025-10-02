@@ -24,16 +24,37 @@ const Auth = () => {
     e.preventDefault();
     setLoading(true);
 
-    // Simulate a brief loading state
-    setTimeout(() => {
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: loginEmail,
+        password: loginPassword,
+      });
+
+      if (error) {
+        toast({
+          title: "Login failed",
+          description: error.message,
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
+      }
+
       toast({
         title: "Login successful",
         description: "Welcome back!",
       });
       
       navigate("/dashboard");
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred",
+        variant: "destructive",
+      });
+    } finally {
       setLoading(false);
-    }, 500);
+    }
   };
 
 
