@@ -12,6 +12,7 @@ const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   // Login form state
   const [loginEmail, setLoginEmail] = useState("");
@@ -57,6 +58,52 @@ const Auth = () => {
     }
   };
 
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const { error } = await supabase.auth.signUp({
+        email: loginEmail,
+        password: loginPassword,
+        options: {
+          emailRedirectTo: `${window.location.origin}/`,
+          data: {
+            employee_id: employeeId,
+            department: department,
+            post: role,
+            name: loginEmail.split('@')[0],
+          }
+        }
+      });
+
+      if (error) {
+        toast({
+          title: "Signup failed",
+          description: error.message,
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
+      }
+
+      toast({
+        title: "Account created successfully!",
+        description: "You can now login with your credentials.",
+      });
+      
+      setIsLogin(true);
+      setLoading(false);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred",
+        variant: "destructive",
+      });
+      setLoading(false);
+    }
+  };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted flex items-center justify-center p-4">
@@ -72,7 +119,7 @@ const Auth = () => {
           <p className="text-muted-foreground">Access your performance dashboard</p>
         </div>
 
-        {/* Login Card */}
+        {/* Login/Signup Card */}
         <Card className="shadow-xl">
           <CardHeader className="space-y-3 pb-6">
             <div className="flex items-center gap-3">
@@ -80,15 +127,15 @@ const Auth = () => {
                 <LogIn className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <CardTitle className="text-2xl">Login</CardTitle>
+                <CardTitle className="text-2xl">{isLogin ? "Login" : "Sign Up"}</CardTitle>
                 <CardDescription className="text-base">
-                  Enter your credentials to access your account
+                  {isLogin ? "Enter your credentials to access your account" : "Create a new account to get started"}
                 </CardDescription>
               </div>
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
-            <form onSubmit={handleLogin} className="space-y-4">
+            <form onSubmit={isLogin ? handleLogin : handleSignup} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="login-email" className="text-base">Email Address</Label>
                 <Input
@@ -160,14 +207,25 @@ const Auth = () => {
                 className="w-full h-11 text-base" 
                 disabled={loading}
               >
-                {loading ? "Logging in..." : (
+                {loading ? (isLogin ? "Logging in..." : "Creating account...") : (
                   <>
-                    Login to Dashboard
+                    {isLogin ? "Login to Dashboard" : "Create Account"}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </>
                 )}
               </Button>
             </form>
+
+            <div className="text-center">
+              <Button
+                type="button"
+                variant="link"
+                onClick={() => setIsLogin(!isLogin)}
+                className="text-sm"
+              >
+                {isLogin ? "Don't have an account? Sign up" : "Already have an account? Login"}
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </div>
