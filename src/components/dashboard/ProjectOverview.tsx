@@ -1,253 +1,559 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Target, Users, BarChart3, Award, AlertTriangle, FileText, TrendingUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { 
+  Target, 
+  Users, 
+  BarChart3, 
+  Award, 
+  AlertTriangle, 
+  FileText, 
+  TrendingUp,
+  Bell,
+  Clock,
+  CheckCircle2,
+  AlertCircle,
+  LogOut,
+  Home,
+  FolderKanban,
+  FileBarChart
+} from "lucide-react";
+import { Progress } from "@/components/ui/progress";
 
 export const ProjectOverview = () => {
+  // Mock user data - in real app, this would come from auth context
+  const userData = {
+    name: "John Doe",
+    role: "Employee", // Options: "Employee", "Team Lead", "Admin"
+    department: "IT Department",
+    employeeId: "EMP12345",
+    score: 78,
+    badges: ["Efficiency Star", "On-Time Finisher"],
+    isProbation: false
+  };
+
+  const getInitials = (name: string) => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  };
+
   return (
-    <div className="space-y-8 max-w-7xl">
-      {/* Header */}
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold">e-Office Productivity & Performance Management System</h1>
-        <p className="text-xl text-muted-foreground">
-          A comprehensive solution for transparent, data-driven employee performance tracking and management
-        </p>
-      </div>
-
-      {/* Role-Specific KPIs */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center gap-2">
-            <Target className="h-6 w-6 text-primary" />
-            <CardTitle>Role-Specific KPIs</CardTitle>
-          </div>
-          <CardDescription>Customized performance indicators for different staff categories</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div>
-            <h3 className="font-semibold mb-2 flex items-center gap-2">
-              <Badge variant="secondary">HQ Staff (Admin)</Badge>
-            </h3>
-            <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-4">
-              <li>File disposal rate</li>
-              <li>Turnaround time</li>
-              <li>Drafting quality</li>
-              <li>Responsiveness</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-semibold mb-2 flex items-center gap-2">
-              <Badge variant="secondary">Field Staff (Technical)</Badge>
-            </h3>
-            <ul className="list-disc list-inside space-y-1 text-muted-foreground ml-4">
-              <li>DPR preparation timeliness</li>
-              <li>Survey accuracy</li>
-              <li>Project timelines</li>
-              <li>Budget utilization</li>
-              <li>Quality compliance</li>
-            </ul>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Scoring System */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center gap-2">
-            <BarChart3 className="h-6 w-6 text-primary" />
-            <CardTitle>Scoring System (Out of 100)</CardTitle>
-          </div>
-          <CardDescription>Balanced evaluation combining quantitative and qualitative metrics</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
-            <span className="font-medium">Quantitative Metrics</span>
-            <Badge>70–80%</Badge>
-          </div>
-          <p className="text-sm text-muted-foreground ml-3">Timeliness, accuracy, measurable outputs</p>
-          
-          <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
-            <span className="font-medium">Qualitative Metrics</span>
-            <Badge>20–30%</Badge>
-          </div>
-          <p className="text-sm text-muted-foreground ml-3">Initiative, teamwork, innovation</p>
-        </CardContent>
-      </Card>
-
-      {/* Dashboards & Monitoring */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center gap-2">
-            <TrendingUp className="h-6 w-6 text-primary" />
-            <CardTitle>Dashboards & Monitoring</CardTitle>
-          </div>
-          <CardDescription>Multi-level performance tracking and visualization</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <h3 className="font-semibold flex items-center gap-2">
-              <Users className="h-4 w-4" />
-              Individual Dashboard
-            </h3>
-            <p className="text-sm text-muted-foreground ml-6">
-              Employee goals, progress tracking, productivity score gauge, assigned tasks
-            </p>
+    <div className="space-y-6">
+      {/* Top Navigation Bar */}
+      <div className="bg-card border rounded-lg p-4 shadow-sm">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="h-10 w-10 bg-primary rounded-lg flex items-center justify-center">
+              <Target className="h-6 w-6 text-primary-foreground" />
+            </div>
+            <div>
+              <h2 className="font-bold text-lg">e-Office Productivity & Performance</h2>
+              <p className="text-xs text-muted-foreground">Management System</p>
+            </div>
           </div>
           
-          <div className="space-y-2">
-            <h3 className="font-semibold flex items-center gap-2">
-              <Users className="h-4 w-4" />
-              Team Dashboard
-            </h3>
-            <p className="text-sm text-muted-foreground ml-6">
-              Team productivity heatmap, milestone tracking, bottleneck alerts
-            </p>
-          </div>
-          
-          <div className="space-y-2">
-            <h3 className="font-semibold flex items-center gap-2">
-              <BarChart3 className="h-4 w-4" />
-              Organization Dashboard
-            </h3>
-            <p className="text-sm text-muted-foreground ml-6">
-              Overall productivity, project status, financial vs physical progress, top performers, report generation
-            </p>
-          </div>
-          
-          <div className="space-y-2">
-            <h3 className="font-semibold flex items-center gap-2">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="sm" className="gap-2">
+              <Home className="h-4 w-4" />
+              Home
+            </Button>
+            <Button variant="ghost" size="sm" className="gap-2">
+              <FolderKanban className="h-4 w-4" />
+              Projects
+            </Button>
+            <Button variant="ghost" size="sm" className="gap-2">
               <Target className="h-4 w-4" />
-              Admin Panel
-            </h3>
-            <p className="text-sm text-muted-foreground ml-6">
-              Define/edit KPIs, manage users, adjust weightages, view audit logs
-            </p>
+              KPIs
+            </Button>
+            <Button variant="ghost" size="sm" className="gap-2">
+              <FileBarChart className="h-4 w-4" />
+              Reports
+            </Button>
+            
+            <div className="flex items-center gap-3 ml-4 pl-4 border-l">
+              <Button variant="ghost" size="icon" className="relative">
+                <Bell className="h-4 w-4" />
+                <span className="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full"></span>
+              </Button>
+              
+              <div className="flex items-center gap-2">
+                <Avatar className="h-8 w-8">
+                  <AvatarFallback className="bg-primary text-primary-foreground text-xs">
+                    {getInitials(userData.name)}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="text-sm">
+                  <p className="font-medium leading-none">{userData.name}</p>
+                  <p className="text-xs text-muted-foreground">{userData.role}</p>
+                </div>
+              </div>
+              
+              <Button variant="ghost" size="icon">
+                <LogOut className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
-      {/* Required Features */}
-      <div className="grid md:grid-cols-2 gap-6">
-        {/* Gamification */}
+      {/* Hero/Welcome Section */}
+      <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-background border rounded-lg p-8 shadow-sm">
+        <h1 className="text-3xl font-bold mb-2">
+          Welcome back, {userData.name.split(' ')[0]}! 👋
+        </h1>
+        <p className="text-muted-foreground mb-6">Productivity Insights at Your Fingertips</p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">Your Score</p>
+                  <p className="text-2xl font-bold">{userData.score}/100</p>
+                </div>
+                <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center">
+                  <BarChart3 className="h-6 w-6 text-primary" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">Tasks Due</p>
+                  <p className="text-2xl font-bold">3</p>
+                </div>
+                <div className="h-12 w-12 bg-orange-500/10 rounded-full flex items-center justify-center">
+                  <Clock className="h-6 w-6 text-orange-500" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">Completed</p>
+                  <p className="text-2xl font-bold">12</p>
+                </div>
+                <div className="h-12 w-12 bg-green-500/10 rounded-full flex items-center justify-center">
+                  <CheckCircle2 className="h-6 w-6 text-green-500" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">Badges Earned</p>
+                  <p className="text-2xl font-bold">{userData.badges.length}</p>
+                </div>
+                <div className="h-12 w-12 bg-yellow-500/10 rounded-full flex items-center justify-center">
+                  <Award className="h-6 w-6 text-yellow-500" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      {/* Role-Based Quick Actions */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {userData.role === "Employee" && (
+          <>
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Target className="h-5 w-5 text-primary" />
+                  My KPIs
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>File Disposal Rate</span>
+                    <span className="font-medium">85%</span>
+                  </div>
+                  <Progress value={85} />
+                </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Turnaround Time</span>
+                    <span className="font-medium">72%</span>
+                  </div>
+                  <Progress value={72} />
+                </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Drafting Quality</span>
+                    <span className="font-medium">90%</span>
+                  </div>
+                  <Progress value={90} />
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <FileText className="h-5 w-5 text-primary" />
+                  Tasks in Progress
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                  <div>
+                    <p className="font-medium text-sm">DPR Preparation</p>
+                    <p className="text-xs text-muted-foreground">Due in 2 days</p>
+                  </div>
+                  <Badge>60%</Badge>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                  <div>
+                    <p className="font-medium text-sm">File #123</p>
+                    <p className="text-xs text-red-500">Delayed by 1 day</p>
+                  </div>
+                  <Badge variant="destructive">40%</Badge>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                  <div>
+                    <p className="font-medium text-sm">Survey Report</p>
+                    <p className="text-xs text-muted-foreground">On track</p>
+                  </div>
+                  <Badge variant="secondary">80%</Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Award className="h-5 w-5 text-yellow-500" />
+                  My Badges
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  {userData.badges.map((badge, idx) => (
+                    <Badge key={idx} className="gap-1 bg-yellow-500/10 text-yellow-700 hover:bg-yellow-500/20">
+                      <Award className="h-3 w-3" />
+                      {badge}
+                    </Badge>
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground mt-4">
+                  Keep up the great work to earn more badges!
+                </p>
+              </CardContent>
+            </Card>
+          </>
+        )}
+
+        {userData.role === "Team Lead" && (
+          <>
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="h-5 w-5 text-primary" />
+                  Team Productivity
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">Average Score</span>
+                    <span className="text-2xl font-bold">76/100</span>
+                  </div>
+                  <Progress value={76} className="h-2" />
+                  <p className="text-xs text-muted-foreground">5 members above target, 2 need support</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <AlertCircle className="h-5 w-5 text-orange-500" />
+                  Bottleneck Alerts
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <div className="flex items-center gap-2 p-2 bg-orange-50 border-l-4 border-orange-500 rounded">
+                  <AlertTriangle className="h-4 w-4 text-orange-500" />
+                  <span className="text-sm">2 projects behind schedule</span>
+                </div>
+                <div className="flex items-center gap-2 p-2 bg-orange-50 border-l-4 border-orange-500 rounded">
+                  <AlertTriangle className="h-4 w-4 text-orange-500" />
+                  <span className="text-sm">3 pending approvals</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-green-500" />
+                  Pending Approvals
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <Button variant="outline" className="w-full justify-between">
+                    <span className="text-sm">DPR Review - Project Alpha</span>
+                    <Badge>Urgent</Badge>
+                  </Button>
+                  <Button variant="outline" className="w-full justify-between">
+                    <span className="text-sm">Leave Request - John Doe</span>
+                    <Badge variant="secondary">2 days</Badge>
+                  </Button>
+                  <Button variant="outline" className="w-full justify-between">
+                    <span className="text-sm">Budget Approval - Q2</span>
+                    <Badge variant="secondary">1 week</Badge>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </>
+        )}
+
+        {userData.role === "Admin" && (
+          <>
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <TrendingUp className="h-5 w-5 text-primary" />
+                  Org-Wide Snapshot
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Average Productivity</span>
+                    <span className="font-bold">74/100</span>
+                  </div>
+                  <Progress value={74} />
+                </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Tasks Completed</span>
+                    <span className="font-bold">86%</span>
+                  </div>
+                  <Progress value={86} />
+                </div>
+                <div className="grid grid-cols-2 gap-2 pt-2">
+                  <div className="text-center p-2 bg-muted rounded">
+                    <p className="text-xs text-muted-foreground">Total Staff</p>
+                    <p className="text-xl font-bold">142</p>
+                  </div>
+                  <div className="text-center p-2 bg-muted rounded">
+                    <p className="text-xs text-muted-foreground">Active Projects</p>
+                    <p className="text-xl font-bold">28</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <FolderKanban className="h-5 w-5 text-primary" />
+                  Project Status
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="p-3 border rounded-lg">
+                  <div className="flex justify-between mb-2">
+                    <span className="font-medium text-sm">Highway Survey</span>
+                    <Badge variant="secondary">On Track</Badge>
+                  </div>
+                  <Progress value={75} className="h-2" />
+                  <p className="text-xs text-muted-foreground mt-1">Budget: ₹45L / ₹60L</p>
+                </div>
+                <div className="p-3 border rounded-lg">
+                  <div className="flex justify-between mb-2">
+                    <span className="font-medium text-sm">Bridge Construction</span>
+                    <Badge>In Progress</Badge>
+                  </div>
+                  <Progress value={60} className="h-2" />
+                  <p className="text-xs text-muted-foreground mt-1">Budget: ₹120L / ₹200L</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <FileBarChart className="h-5 w-5 text-primary" />
+                  Reports & Analytics
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <Button className="w-full justify-start gap-2" variant="outline">
+                  <FileText className="h-4 w-4" />
+                  Download Monthly Report
+                </Button>
+                <Button className="w-full justify-start gap-2" variant="outline">
+                  <BarChart3 className="h-4 w-4" />
+                  View Analytics Dashboard
+                </Button>
+                <Button className="w-full justify-start gap-2" variant="outline">
+                  <Users className="h-4 w-4" />
+                  Staff Performance Report
+                </Button>
+              </CardContent>
+            </Card>
+          </>
+        )}
+      </div>
+
+      {/* Probation Section (if applicable) */}
+      {userData.isProbation && (
+        <Card className="border-orange-500 bg-orange-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-orange-700">
+              <AlertTriangle className="h-5 w-5" />
+              Probation Notice
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-sm">
+              Your current performance score is below the threshold. Please communicate with your supervisor 
+              to discuss challenges and improvement strategies.
+            </p>
+            <Button className="gap-2">
+              <Users className="h-4 w-4" />
+              Communicate with Supervisor
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Dashboard Preview Widgets */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card>
           <CardHeader>
-            <div className="flex items-center gap-2">
-              <Award className="h-6 w-6 text-primary" />
-              <CardTitle>Gamification</CardTitle>
-            </div>
+            <CardTitle className="text-base">Alerts & Notifications</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm">Award badges to employees with commendable performance</p>
-            <p className="text-sm">Leaderboard display of top performers (optional but aligned with badges)</p>
+          <CardContent className="space-y-2">
+            <div className="flex items-start gap-2 p-2 bg-red-50 rounded">
+              <AlertCircle className="h-4 w-4 text-red-500 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium">File #456 Delayed</p>
+                <p className="text-xs text-muted-foreground">Action required</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-2 p-2 bg-blue-50 rounded">
+              <Bell className="h-4 w-4 text-blue-500 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium">New KPI Update</p>
+                <p className="text-xs text-muted-foreground">Review changes</p>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
-        {/* Probation System */}
         <Card>
           <CardHeader>
-            <div className="flex items-center gap-2">
-              <AlertTriangle className="h-6 w-6 text-primary" />
-              <CardTitle>Probation System</CardTitle>
-            </div>
+            <CardTitle className="text-base">Productivity Score</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm">
-              Employees scoring below threshold (e.g., &lt;50/100) are marked as "On Probation"
-            </p>
+          <CardContent>
+            <div className="flex items-center justify-center">
+              <div className="relative w-32 h-32">
+                <svg className="transform -rotate-90 w-32 h-32">
+                  <circle
+                    cx="64"
+                    cy="64"
+                    r="56"
+                    stroke="currentColor"
+                    strokeWidth="8"
+                    fill="transparent"
+                    className="text-muted"
+                  />
+                  <circle
+                    cx="64"
+                    cy="64"
+                    r="56"
+                    stroke="currentColor"
+                    strokeWidth="8"
+                    fill="transparent"
+                    strokeDasharray={`${2 * Math.PI * 56}`}
+                    strokeDashoffset={`${2 * Math.PI * 56 * (1 - userData.score / 100)}`}
+                    className="text-primary"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-3xl font-bold">{userData.score}</span>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Task Tracker</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Due this week</span>
+                <span className="font-bold">3 tasks</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">In progress</span>
+                <span className="font-bold">5 tasks</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Completed</span>
+                <span className="font-bold text-green-600">12 tasks</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Project Status</CardTitle>
+          </CardHeader>
+          <CardContent>
             <div className="space-y-2">
-              <p className="text-sm font-medium">Probation Dashboard Features:</p>
-              <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
-                <li>Communication channel for challenges (workload, resources, skill gaps)</li>
-                <li>Supervisor response and guidance system</li>
-                <li>Periodic warnings and reminders for improvement</li>
-              </ul>
+              <div className="p-2 bg-muted rounded">
+                <p className="text-sm font-medium">Survey Report</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <Progress value={80} className="h-1.5" />
+                  <span className="text-xs">80%</span>
+                </div>
+              </div>
+              <div className="p-2 bg-muted rounded">
+                <p className="text-sm font-medium">DPR Analysis</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <Progress value={45} className="h-1.5" />
+                  <span className="text-xs">45%</span>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Reports & Transparency */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center gap-2">
-            <FileText className="h-6 w-6 text-primary" />
-            <CardTitle>Reports & Transparency</CardTitle>
+      {/* Footer */}
+      <div className="bg-card border rounded-lg p-6 mt-8">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex gap-4 text-sm text-muted-foreground">
+            <Button variant="link" className="h-auto p-0">About</Button>
+            <Button variant="link" className="h-auto p-0">Help</Button>
+            <Button variant="link" className="h-auto p-0">Contact Support</Button>
           </div>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <p className="text-sm">Generate and export reports (PDF/Excel) for higher-level analysis</p>
-          <p className="text-sm">Ensure fair and transparent evaluation using quantified KPIs instead of perception alone</p>
-        </CardContent>
-      </Card>
-
-      {/* Tech Stack */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Tech Stack</CardTitle>
-          <CardDescription>Modern, scalable technology foundation</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <h4 className="font-semibold">Frontend</h4>
-              <p className="text-sm text-muted-foreground">React + TypeScript with dashboards, graphs, forms, and role-based views</p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="font-semibold">Backend</h4>
-              <p className="text-sm text-muted-foreground">Supabase (PostgreSQL) for data storage and authentication</p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="font-semibold">Charts & Visualization</h4>
-              <p className="text-sm text-muted-foreground">Recharts for interactive dashboards and analytics</p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="font-semibold">Deployment</h4>
-              <p className="text-sm text-muted-foreground">Optimized for seamless cloud deployment</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Expected Outcomes */}
-      <Card className="border-primary">
-        <CardHeader>
-          <CardTitle className="text-primary">Expected Outcomes</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-2">
-              <span className="text-primary mt-1">✓</span>
-              <span className="text-sm">Transparent productivity tracking at individual, team, and organizational levels</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary mt-1">✓</span>
-              <span className="text-sm">Gamification for motivation (badges for high performers)</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary mt-1">✓</span>
-              <span className="text-sm">Probation management & support for underperformers (communication channel + reminders)</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary mt-1">✓</span>
-              <span className="text-sm">An objective, fair, and scientific alternative to the current subjective appraisal system (APAR)</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-primary mt-1">✓</span>
-              <span className="text-sm">Increased accountability, improved efficiency, and data-driven HR decisions in government offices</span>
-            </li>
-          </ul>
-        </CardContent>
-      </Card>
-
-      {/* Summary */}
-      <Card className="bg-primary/5 border-primary/20">
-        <CardContent className="pt-6">
-          <p className="text-center font-medium">
-            "A comprehensive Productivity & Performance Management Web App with role-specific KPIs, 
-            weighted scoring, real-time dashboards, gamification for top performers, and a probation 
-            + communication system for underperformers."
+          <p className="text-sm text-muted-foreground">
+            Powered by e-Office, Brahmaputra Board
           </p>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };
