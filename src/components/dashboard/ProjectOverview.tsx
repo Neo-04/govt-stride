@@ -202,7 +202,7 @@ export const ProjectOverview = () => {
           {/* Performance Score Card */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Your Score</CardTitle>
+              <CardTitle className="text-base">My Performance</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-center">
@@ -235,6 +235,24 @@ export const ProjectOverview = () => {
                   </div>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+
+          {/* Navigation Buttons below Performance */}
+          <Card>
+            <CardContent className="pt-4 space-y-2">
+              <Button variant="ghost" className="w-full justify-start gap-2">
+                <FolderKanban className="h-4 w-4" />
+                Projects
+              </Button>
+              <Button variant="ghost" className="w-full justify-start gap-2">
+                <Target className="h-4 w-4" />
+                KPIs
+              </Button>
+              <Button variant="ghost" className="w-full justify-start gap-2">
+                <FileBarChart className="h-4 w-4" />
+                Reports
+              </Button>
             </CardContent>
           </Card>
 
