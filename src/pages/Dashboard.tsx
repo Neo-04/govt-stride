@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import { Sidebar } from "@/components/dashboard/Sidebar";
 import { IndividualDashboard } from "@/components/dashboard/IndividualDashboard";
 import { TeamDashboard } from "@/components/dashboard/TeamDashboard";
@@ -9,8 +11,28 @@ import { ProbationManagement } from "@/components/dashboard/ProbationManagement"
 export type DashboardView = "individual" | "team" | "organization" | "admin" | "probation";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+  const { user, loading } = useAuth();
   const [currentView, setCurrentView] = useState<DashboardView>("individual");
   const [userRole] = useState<"employee" | "supervisor" | "admin">("employee");
+
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate("/auth");
+    }
+  }, [user, loading, navigate]);
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <p className="text-muted-foreground">Loading...</p>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null;
+  }
 
   const renderDashboard = () => {
     switch (currentView) {

@@ -57,8 +57,8 @@ const Index = () => {
             Quantify performance with role-specific KPIs, real-time dashboards, and scientific evaluation.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Button size="lg" onClick={() => navigate("/dashboard")} className="text-lg px-8">
-              Access Dashboard
+            <Button size="lg" onClick={() => navigate("/auth")} className="text-lg px-8">
+              Login / Sign Up
             </Button>
             <Button size="lg" variant="outline" className="text-lg px-8">
               Learn More
@@ -130,7 +130,7 @@ const Index = () => {
             <Button
               size="lg"
               variant="secondary"
-              onClick={() => navigate("/dashboard")}
+              onClick={() => navigate("/auth")}
               className="text-lg px-8"
             >
               Get Started Now
