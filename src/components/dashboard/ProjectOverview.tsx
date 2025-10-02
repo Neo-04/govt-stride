@@ -57,18 +57,6 @@ export const ProjectOverview = () => {
               <Home className="h-4 w-4" />
               Home
             </Button>
-            <Button variant="ghost" size="sm" className="gap-2">
-              <FolderKanban className="h-4 w-4" />
-              Projects
-            </Button>
-            <Button variant="ghost" size="sm" className="gap-2">
-              <Target className="h-4 w-4" />
-              KPIs
-            </Button>
-            <Button variant="ghost" size="sm" className="gap-2">
-              <FileBarChart className="h-4 w-4" />
-              Reports
-            </Button>
             
             <div className="flex items-center gap-3 ml-4 pl-4 border-l">
               <Button variant="ghost" size="icon" className="relative">
@@ -87,10 +75,6 @@ export const ProjectOverview = () => {
                   <p className="text-xs text-muted-foreground">{userData.role}</p>
                 </div>
               </div>
-              
-              <Button variant="ghost" size="icon">
-                <LogOut className="h-4 w-4" />
-              </Button>
             </div>
           </div>
         </div>
@@ -194,6 +178,27 @@ export const ProjectOverview = () => {
             </CardContent>
           </Card>
 
+          {/* Navigation Menu */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Menu</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <Button variant="ghost" className="w-full justify-start gap-2">
+                <FolderKanban className="h-4 w-4" />
+                Projects
+              </Button>
+              <Button variant="ghost" className="w-full justify-start gap-2">
+                <Target className="h-4 w-4" />
+                KPIs
+              </Button>
+              <Button variant="ghost" className="w-full justify-start gap-2">
+                <FileBarChart className="h-4 w-4" />
+                Reports
+              </Button>
+            </CardContent>
+          </Card>
+
           {/* Task Tracker */}
           <Card>
             <CardHeader>
@@ -239,6 +244,12 @@ export const ProjectOverview = () => {
               </div>
             </CardContent>
           </Card>
+
+          {/* Logout Button */}
+          <Button variant="destructive" className="w-full gap-2">
+            <LogOut className="h-4 w-4" />
+            Logout
+          </Button>
         </div>
 
         {/* Main Content Area */}
