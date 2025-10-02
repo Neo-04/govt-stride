@@ -15,6 +15,9 @@ const Auth = () => {
 
   // Login form state
   const [loginEmail, setLoginEmail] = useState("");
+  const [employeeId, setEmployeeId] = useState("");
+  const [department, setDepartment] = useState("");
+  const [role, setRole] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -77,7 +80,7 @@ const Auth = () => {
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
-            <form onSubmit={handleLogin} className="space-y-5">
+            <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="login-email" className="text-base">Email Address</Label>
                 <Input
@@ -90,6 +93,47 @@ const Auth = () => {
                   className="h-11"
                 />
               </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="employee-id" className="text-base">Employee ID</Label>
+                  <Input
+                    id="employee-id"
+                    type="text"
+                    placeholder="EMP12345"
+                    value={employeeId}
+                    onChange={(e) => setEmployeeId(e.target.value)}
+                    required
+                    className="h-11"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="department" className="text-base">Department</Label>
+                  <Input
+                    id="department"
+                    type="text"
+                    placeholder="IT Department"
+                    value={department}
+                    onChange={(e) => setDepartment(e.target.value)}
+                    required
+                    className="h-11"
+                  />
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="role" className="text-base">Role</Label>
+                <Input
+                  id="role"
+                  type="text"
+                  placeholder="Technical Officer"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  required
+                  className="h-11"
+                />
+              </div>
+              
               <div className="space-y-2">
                 <Label htmlFor="login-password" className="text-base">Password</Label>
                 <Input
@@ -102,6 +146,7 @@ const Auth = () => {
                   className="h-11"
                 />
               </div>
+              
               <Button 
                 type="submit" 
                 className="w-full h-11 text-base" 
