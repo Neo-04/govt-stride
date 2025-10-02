@@ -182,10 +182,6 @@ export const ProjectOverview = () => {
                   <FileBarChart className="h-4 w-4" />
                   Reports
                 </Button>
-                <Button variant="destructive" className="w-full gap-2">
-                  <LogOut className="h-4 w-4" />
-                  Logout
-                </Button>
               </div>
             </CardContent>
           </Card>
@@ -235,6 +231,12 @@ export const ProjectOverview = () => {
               </div>
             </CardContent>
           </Card>
+
+          {/* Logout Button at the bottom */}
+          <Button variant="destructive" className="w-full gap-2">
+            <LogOut className="h-4 w-4" />
+            Logout
+          </Button>
         </div>
 
         {/* Main Content Area */}
