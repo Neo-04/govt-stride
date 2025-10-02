@@ -12,7 +12,6 @@ const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
 
   // Login form state
   const [loginEmail, setLoginEmail] = useState("");
@@ -25,83 +24,16 @@ const Auth = () => {
     e.preventDefault();
     setLoading(true);
 
-    try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: loginEmail,
-        password: loginPassword,
-      });
-
-      if (error) {
-        toast({
-          title: "Login failed",
-          description: error.message,
-          variant: "destructive",
-        });
-        setLoading(false);
-        return;
-      }
-
+    // Simulate a brief loading state
+    setTimeout(() => {
       toast({
         title: "Login successful",
         description: "Welcome back!",
       });
       
       navigate("/dashboard");
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "An unexpected error occurred",
-        variant: "destructive",
-      });
-    } finally {
       setLoading(false);
-    }
-  };
-
-  const handleSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      const { error } = await supabase.auth.signUp({
-        email: loginEmail,
-        password: loginPassword,
-        options: {
-          emailRedirectTo: `${window.location.origin}/`,
-          data: {
-            employee_id: employeeId,
-            department: department,
-            post: role,
-            name: loginEmail.split('@')[0],
-          }
-        }
-      });
-
-      if (error) {
-        toast({
-          title: "Signup failed",
-          description: error.message,
-          variant: "destructive",
-        });
-        setLoading(false);
-        return;
-      }
-
-      toast({
-        title: "Account created successfully!",
-        description: "You can now login with your credentials.",
-      });
-      
-      setIsLogin(true);
-      setLoading(false);
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "An unexpected error occurred",
-        variant: "destructive",
-      });
-      setLoading(false);
-    }
+    }, 500);
   };
 
 
@@ -119,7 +51,7 @@ const Auth = () => {
           <p className="text-muted-foreground">Access your performance dashboard</p>
         </div>
 
-        {/* Login/Signup Card */}
+        {/* Login Card */}
         <Card className="shadow-xl">
           <CardHeader className="space-y-3 pb-6">
             <div className="flex items-center gap-3">
@@ -127,15 +59,15 @@ const Auth = () => {
                 <LogIn className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <CardTitle className="text-2xl">{isLogin ? "Login" : "Sign Up"}</CardTitle>
+                <CardTitle className="text-2xl">Login</CardTitle>
                 <CardDescription className="text-base">
-                  {isLogin ? "Enter your credentials to access your account" : "Create a new account to get started"}
+                  Enter your credentials to access your account
                 </CardDescription>
               </div>
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
-            <form onSubmit={isLogin ? handleLogin : handleSignup} className="space-y-4">
+            <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="login-email" className="text-base">Email Address</Label>
                 <Input
@@ -207,25 +139,14 @@ const Auth = () => {
                 className="w-full h-11 text-base" 
                 disabled={loading}
               >
-                {loading ? (isLogin ? "Logging in..." : "Creating account...") : (
+                {loading ? "Logging in..." : (
                   <>
-                    {isLogin ? "Login to Dashboard" : "Create Account"}
+                    Login to Dashboard
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </>
                 )}
               </Button>
             </form>
-
-            <div className="text-center">
-              <Button
-                type="button"
-                variant="link"
-                onClick={() => setIsLogin(!isLogin)}
-                className="text-sm"
-              >
-                {isLogin ? "Don't have an account? Sign up" : "Already have an account? Login"}
-              </Button>
-            </div>
           </CardContent>
         </Card>
       </div>

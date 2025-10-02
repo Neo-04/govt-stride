@@ -21,9 +21,7 @@ const Dashboard = () => {
   const [showPerformanceReport, setShowPerformanceReport] = useState(false);
 
   useEffect(() => {
-    if (!loading && !user) {
-      navigate("/");
-    }
+    // Skip authentication check - allow access to dashboard
   }, [user, loading, navigate]);
 
   if (loading) {

@@ -1,11 +1,8 @@
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { useToast } from "@/hooks/use-toast";
-import {
+import { 
   Target, 
   Users, 
   BarChart3, 
@@ -25,10 +22,6 @@ import {
 import { Progress } from "@/components/ui/progress";
 
 export const ProjectOverview = () => {
-  const navigate = useNavigate();
-  const { logout } = useAuth();
-  const { toast } = useToast();
-
   // Mock user data - in real app, this would come from auth context
   const userData = {
     name: "John Doe",
@@ -42,23 +35,6 @@ export const ProjectOverview = () => {
 
   const getInitials = (name: string) => {
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
-  };
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-      toast({
-        title: "Logged out successfully",
-        description: "See you next time!",
-      });
-      navigate("/");
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to logout. Please try again.",
-        variant: "destructive",
-      });
-    }
   };
 
   return (
@@ -257,7 +233,7 @@ export const ProjectOverview = () => {
           </Card>
 
           {/* Logout Button at the bottom */}
-          <Button variant="destructive" className="w-full gap-2" onClick={handleLogout}>
+          <Button variant="destructive" className="w-full gap-2">
             <LogOut className="h-4 w-4" />
             Logout
           </Button>
