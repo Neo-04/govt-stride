@@ -53,12 +53,7 @@ export const ProjectOverview = () => {
           </div>
           
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" className="gap-2">
-              <Home className="h-4 w-4" />
-              Home
-            </Button>
-            
-            <div className="flex items-center gap-3 ml-4 pl-4 border-l">
+            <div className="flex items-center gap-3">
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="h-4 w-4" />
                 <span className="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full"></span>
@@ -136,54 +131,13 @@ export const ProjectOverview = () => {
       <div className="grid lg:grid-cols-4 gap-6">
         {/* Left Sidebar */}
         <div className="lg:col-span-1 space-y-6">
-          {/* My Performance Score */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base flex items-center gap-2">
-                <BarChart3 className="h-5 w-5 text-primary" />
-                My Performance
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center justify-center">
-                <div className="relative w-32 h-32">
-                  <svg className="transform -rotate-90 w-32 h-32">
-                    <circle
-                      cx="64"
-                      cy="64"
-                      r="56"
-                      stroke="currentColor"
-                      strokeWidth="8"
-                      fill="transparent"
-                      className="text-muted"
-                    />
-                    <circle
-                      cx="64"
-                      cy="64"
-                      r="56"
-                      stroke="currentColor"
-                      strokeWidth="8"
-                      fill="transparent"
-                      strokeDasharray={`${2 * Math.PI * 56}`}
-                      strokeDashoffset={`${2 * Math.PI * 56 * (1 - userData.score / 100)}`}
-                      className="text-primary"
-                    />
-                  </svg>
-                  <div className="absolute inset-0 flex items-center justify-center flex-col">
-                    <span className="text-3xl font-bold">{userData.score}</span>
-                    <span className="text-xs text-muted-foreground">/ 100</span>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
           {/* Navigation Menu */}
           <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Menu</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
+            <CardContent className="pt-6 space-y-2">
+              <Button className="w-full justify-start gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
+                <BarChart3 className="h-4 w-4" />
+                My Performance
+              </Button>
               <Button variant="ghost" className="w-full justify-start gap-2">
                 <FolderKanban className="h-4 w-4" />
                 Projects
@@ -240,6 +194,45 @@ export const ProjectOverview = () => {
                 <div>
                   <p className="text-sm font-medium">New KPI Update</p>
                   <p className="text-xs text-muted-foreground">Review changes</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Performance Score Card */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Your Score</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-center">
+                <div className="relative w-32 h-32">
+                  <svg className="transform -rotate-90 w-32 h-32">
+                    <circle
+                      cx="64"
+                      cy="64"
+                      r="56"
+                      stroke="currentColor"
+                      strokeWidth="8"
+                      fill="transparent"
+                      className="text-muted"
+                    />
+                    <circle
+                      cx="64"
+                      cy="64"
+                      r="56"
+                      stroke="currentColor"
+                      strokeWidth="8"
+                      fill="transparent"
+                      strokeDasharray={`${2 * Math.PI * 56}`}
+                      strokeDashoffset={`${2 * Math.PI * 56 * (1 - userData.score / 100)}`}
+                      className="text-primary"
+                    />
+                  </svg>
+                  <div className="absolute inset-0 flex items-center justify-center flex-col">
+                    <span className="text-3xl font-bold">{userData.score}</span>
+                    <span className="text-xs text-muted-foreground">/ 100</span>
+                  </div>
                 </div>
               </div>
             </CardContent>
