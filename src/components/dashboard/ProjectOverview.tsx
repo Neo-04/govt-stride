@@ -131,25 +131,62 @@ export const ProjectOverview = () => {
       <div className="grid lg:grid-cols-4 gap-6">
         {/* Left Sidebar */}
         <div className="lg:col-span-1 space-y-6">
-          {/* Navigation Menu */}
+          {/* My Performance Score */}
           <Card>
-            <CardContent className="pt-6 space-y-2">
-              <Button className="w-full justify-start gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
-                <BarChart3 className="h-4 w-4" />
-                My Performance
-              </Button>
-              <Button variant="ghost" className="w-full justify-start gap-2">
-                <FolderKanban className="h-4 w-4" />
-                Projects
-              </Button>
-              <Button variant="ghost" className="w-full justify-start gap-2">
-                <Target className="h-4 w-4" />
-                KPIs
-              </Button>
-              <Button variant="ghost" className="w-full justify-start gap-2">
-                <FileBarChart className="h-4 w-4" />
-                Reports
-              </Button>
+            <CardHeader>
+              <CardTitle className="text-base">My Performance</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-center">
+                <div className="relative w-32 h-32">
+                  <svg className="transform -rotate-90 w-32 h-32">
+                    <circle
+                      cx="64"
+                      cy="64"
+                      r="56"
+                      stroke="currentColor"
+                      strokeWidth="8"
+                      fill="transparent"
+                      className="text-muted"
+                    />
+                    <circle
+                      cx="64"
+                      cy="64"
+                      r="56"
+                      stroke="currentColor"
+                      strokeWidth="8"
+                      fill="transparent"
+                      strokeDasharray={`${2 * Math.PI * 56}`}
+                      strokeDashoffset={`${2 * Math.PI * 56 * (1 - userData.score / 100)}`}
+                      className="text-primary"
+                    />
+                  </svg>
+                  <div className="absolute inset-0 flex items-center justify-center flex-col">
+                    <span className="text-3xl font-bold">{userData.score}</span>
+                    <span className="text-xs text-muted-foreground">/ 100</span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Navigation buttons below the gauge */}
+              <div className="space-y-2 pt-4">
+                <Button variant="ghost" className="w-full justify-start gap-2">
+                  <FolderKanban className="h-4 w-4" />
+                  Projects
+                </Button>
+                <Button variant="ghost" className="w-full justify-start gap-2">
+                  <Target className="h-4 w-4" />
+                  KPIs
+                </Button>
+                <Button variant="ghost" className="w-full justify-start gap-2">
+                  <FileBarChart className="h-4 w-4" />
+                  Reports
+                </Button>
+                <Button variant="destructive" className="w-full gap-2">
+                  <LogOut className="h-4 w-4" />
+                  Logout
+                </Button>
+              </div>
             </CardContent>
           </Card>
 
@@ -198,69 +235,6 @@ export const ProjectOverview = () => {
               </div>
             </CardContent>
           </Card>
-
-          {/* Performance Score Card */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">My Performance</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center justify-center">
-                <div className="relative w-32 h-32">
-                  <svg className="transform -rotate-90 w-32 h-32">
-                    <circle
-                      cx="64"
-                      cy="64"
-                      r="56"
-                      stroke="currentColor"
-                      strokeWidth="8"
-                      fill="transparent"
-                      className="text-muted"
-                    />
-                    <circle
-                      cx="64"
-                      cy="64"
-                      r="56"
-                      stroke="currentColor"
-                      strokeWidth="8"
-                      fill="transparent"
-                      strokeDasharray={`${2 * Math.PI * 56}`}
-                      strokeDashoffset={`${2 * Math.PI * 56 * (1 - userData.score / 100)}`}
-                      className="text-primary"
-                    />
-                  </svg>
-                  <div className="absolute inset-0 flex items-center justify-center flex-col">
-                    <span className="text-3xl font-bold">{userData.score}</span>
-                    <span className="text-xs text-muted-foreground">/ 100</span>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Navigation Buttons below Performance */}
-          <Card>
-            <CardContent className="pt-4 space-y-2">
-              <Button variant="ghost" className="w-full justify-start gap-2">
-                <FolderKanban className="h-4 w-4" />
-                Projects
-              </Button>
-              <Button variant="ghost" className="w-full justify-start gap-2">
-                <Target className="h-4 w-4" />
-                KPIs
-              </Button>
-              <Button variant="ghost" className="w-full justify-start gap-2">
-                <FileBarChart className="h-4 w-4" />
-                Reports
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* Logout Button */}
-          <Button variant="destructive" className="w-full gap-2">
-            <LogOut className="h-4 w-4" />
-            Logout
-          </Button>
         </div>
 
         {/* Main Content Area */}
