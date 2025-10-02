@@ -47,7 +47,7 @@ const Auth = () => {
               <Trophy className="h-12 w-12 text-primary-foreground" />
             </div>
           </div>
-          <h1 className="text-4xl font-bold mb-2">e-Office Performance System</h1>
+          <h1 className="text-4xl font-bold mb-2">ProTrack Performance System</h1>
           <p className="text-muted-foreground">Access your performance dashboard</p>
         </div>
 

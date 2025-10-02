@@ -47,7 +47,7 @@ export const ProjectOverview = () => {
               <Target className="h-6 w-6 text-primary-foreground" />
             </div>
             <div>
-              <h2 className="font-bold text-lg">e-Office Productivity & Performance</h2>
+              <h2 className="font-bold text-lg">ProTrack Productivity & Performance</h2>
               <p className="text-xs text-muted-foreground">Management System</p>
             </div>
           </div>
@@ -547,7 +547,7 @@ export const ProjectOverview = () => {
             <Button variant="link" className="h-auto p-0">Contact Support</Button>
           </div>
           <p className="text-sm text-muted-foreground">
-            Powered by e-Office, Brahmaputra Board
+            Powered by ProTrack, Brahmaputra Board
           </p>
         </div>
       </div>

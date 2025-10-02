@@ -24,7 +24,7 @@ export const Sidebar = ({ currentView, setCurrentView, userRole }: SidebarProps)
       <div className="p-6 border-b border-border">
         <div className="flex items-center gap-2 mb-2">
           <Trophy className="h-6 w-6 text-primary" />
-          <h1 className="text-xl font-bold text-foreground">e-Office PMS</h1>
+          <h1 className="text-xl font-bold text-foreground">ProTrack</h1>
         </div>
         <p className="text-xs text-muted-foreground">Performance Management System</p>
       </div>
