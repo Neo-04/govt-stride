@@ -103,21 +103,7 @@ export const ProjectOverview = () => {
         </h1>
         <p className="text-muted-foreground mb-6">Productivity Insights at Your Fingertips</p>
         
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-muted-foreground">Your Score</p>
-                  <p className="text-2xl font-bold">{userData.score}/100</p>
-                </div>
-                <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center">
-                  <BarChart3 className="h-6 w-6 text-primary" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Card>
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
@@ -162,8 +148,101 @@ export const ProjectOverview = () => {
         </div>
       </div>
 
-      {/* Role-Based Quick Actions */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Main Content Area with Sidebar Layout */}
+      <div className="grid lg:grid-cols-4 gap-6">
+        {/* Left Sidebar */}
+        <div className="lg:col-span-1 space-y-6">
+          {/* My Performance Score */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base flex items-center gap-2">
+                <BarChart3 className="h-5 w-5 text-primary" />
+                My Performance
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-center">
+                <div className="relative w-32 h-32">
+                  <svg className="transform -rotate-90 w-32 h-32">
+                    <circle
+                      cx="64"
+                      cy="64"
+                      r="56"
+                      stroke="currentColor"
+                      strokeWidth="8"
+                      fill="transparent"
+                      className="text-muted"
+                    />
+                    <circle
+                      cx="64"
+                      cy="64"
+                      r="56"
+                      stroke="currentColor"
+                      strokeWidth="8"
+                      fill="transparent"
+                      strokeDasharray={`${2 * Math.PI * 56}`}
+                      strokeDashoffset={`${2 * Math.PI * 56 * (1 - userData.score / 100)}`}
+                      className="text-primary"
+                    />
+                  </svg>
+                  <div className="absolute inset-0 flex items-center justify-center flex-col">
+                    <span className="text-3xl font-bold">{userData.score}</span>
+                    <span className="text-xs text-muted-foreground">/ 100</span>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Task Tracker */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Task Tracker</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Due this week</span>
+                  <span className="font-bold">3 tasks</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">In progress</span>
+                  <span className="font-bold">5 tasks</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Completed</span>
+                  <span className="font-bold text-green-600">12 tasks</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Alerts & Notifications */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Alerts</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <div className="flex items-start gap-2 p-2 bg-red-50 rounded">
+                <AlertCircle className="h-4 w-4 text-red-500 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium">File #456 Delayed</p>
+                  <p className="text-xs text-muted-foreground">Action required</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2 p-2 bg-blue-50 rounded">
+                <Bell className="h-4 w-4 text-blue-500 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium">New KPI Update</p>
+                  <p className="text-xs text-muted-foreground">Review changes</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Main Content Area */}
+        <div className="lg:col-span-3 space-y-6">
         {userData.role === "Employee" && (
           <>
             <Card className="hover:shadow-lg transition-shadow">
@@ -249,6 +328,33 @@ export const ProjectOverview = () => {
                 <p className="text-sm text-muted-foreground mt-4">
                   Keep up the great work to earn more badges!
                 </p>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <TrendingUp className="h-5 w-5 text-primary" />
+                  Project Status
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <div className="p-2 bg-muted rounded">
+                    <p className="text-sm font-medium">Survey Report</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <Progress value={80} className="h-1.5" />
+                      <span className="text-xs">80%</span>
+                    </div>
+                  </div>
+                  <div className="p-2 bg-muted rounded">
+                    <p className="text-sm font-medium">DPR Analysis</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <Progress value={45} className="h-1.5" />
+                      <span className="text-xs">45%</span>
+                    </div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </>
@@ -409,6 +515,7 @@ export const ProjectOverview = () => {
             </Card>
           </>
         )}
+        </div>
       </div>
 
       {/* Probation Section (if applicable) */}
@@ -432,114 +539,6 @@ export const ProjectOverview = () => {
           </CardContent>
         </Card>
       )}
-
-      {/* Dashboard Preview Widgets */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Alerts & Notifications</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="flex items-start gap-2 p-2 bg-red-50 rounded">
-              <AlertCircle className="h-4 w-4 text-red-500 mt-0.5" />
-              <div>
-                <p className="text-sm font-medium">File #456 Delayed</p>
-                <p className="text-xs text-muted-foreground">Action required</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-2 p-2 bg-blue-50 rounded">
-              <Bell className="h-4 w-4 text-blue-500 mt-0.5" />
-              <div>
-                <p className="text-sm font-medium">New KPI Update</p>
-                <p className="text-xs text-muted-foreground">Review changes</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Productivity Score</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-center">
-              <div className="relative w-32 h-32">
-                <svg className="transform -rotate-90 w-32 h-32">
-                  <circle
-                    cx="64"
-                    cy="64"
-                    r="56"
-                    stroke="currentColor"
-                    strokeWidth="8"
-                    fill="transparent"
-                    className="text-muted"
-                  />
-                  <circle
-                    cx="64"
-                    cy="64"
-                    r="56"
-                    stroke="currentColor"
-                    strokeWidth="8"
-                    fill="transparent"
-                    strokeDasharray={`${2 * Math.PI * 56}`}
-                    strokeDashoffset={`${2 * Math.PI * 56 * (1 - userData.score / 100)}`}
-                    className="text-primary"
-                  />
-                </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-3xl font-bold">{userData.score}</span>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Task Tracker</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Due this week</span>
-                <span className="font-bold">3 tasks</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">In progress</span>
-                <span className="font-bold">5 tasks</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Completed</span>
-                <span className="font-bold text-green-600">12 tasks</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Project Status</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              <div className="p-2 bg-muted rounded">
-                <p className="text-sm font-medium">Survey Report</p>
-                <div className="flex items-center gap-2 mt-1">
-                  <Progress value={80} className="h-1.5" />
-                  <span className="text-xs">80%</span>
-                </div>
-              </div>
-              <div className="p-2 bg-muted rounded">
-                <p className="text-sm font-medium">DPR Analysis</p>
-                <div className="flex items-center gap-2 mt-1">
-                  <Progress value={45} className="h-1.5" />
-                  <span className="text-xs">45%</span>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
 
       {/* Footer */}
       <div className="bg-card border rounded-lg p-6 mt-8">
