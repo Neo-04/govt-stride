@@ -20,20 +20,10 @@ const Dashboard = () => {
   const [showPerformanceReport, setShowPerformanceReport] = useState(false);
 
   useEffect(() => {
-    if (!loading && !user) {
-      navigate("/");
-    }
+    // Skip authentication check - allow access to dashboard
   }, [user, loading, navigate]);
 
   if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-muted-foreground">Loading...</p>
-      </div>
-    );
-  }
-
-  if (!user) {
     return null;
   }
 
