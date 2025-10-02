@@ -74,10 +74,7 @@ const Dashboard = () => {
                 Home
               </Button>
             </div>
-            <div className="space-y-6">
-              <h1 className="text-3xl font-bold">Performance Report</h1>
-              {renderDashboard()}
-            </div>
+            {renderDashboard()}
           </div>
         )}
       </main>
